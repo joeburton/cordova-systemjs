@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Main Spec</title>
+	<script src="/web-component-tester/browser.js"></script>
+	<script src="/bower_components/system.js/dist/system.js"></script>
+</head>
+
+<body>
+
+	<test-fixture id="app-fixture">
+		<div class="app">
+            <div class="wrapper">
+                <section class="header"></section>
+                <section class="main-content">
+                    <span class="welcome">-- Triangle App --</span>
+                    <section class="content">
+                        <nav class="main-nav">
+                            <ul>
+                                <li><a href="">Quick room booking</a></li>
+                                <li><a href="">View building maps</a></li>
+                                <li><a href="">Where am I?</a></li>
+                                <li><a href="">Canteen menu</a></li>
+                                <li><a href="">Real time traffic and travel information</a></li>
+                                <li><a href="">Personal CA account</a></li>
+                                <li><a href="">Report a fault (IT &amp; Premises)</a></li>
+                            </ul>
+                        </nav>
+                        <section class="active"></section>
+                    </section>
+                </section>
+                <section class="footer"><span class="statement">Shaping the future through better education</span></section>
+            </div>
+        </div>
+	</test-fixture>
+
+	<script>
+
+        /*
+         * We're using Polymers Web Component Test framework - (we also use this framework on the common-ui project)
+         * https://github.com/Polymer/web-component-tester
+         * 
+         * 
+         * TDD Style
+         * Refer to Mocha for test structure
+         * http://mochajs.org/#getting-started
+         * 
+         * 
+         * Sinon.JS Assertions for Chai
+         * Use the it should approach
+         * https://github.com/domenic/sinon-chai
+         * 
+         * 
+         * Use expect style
+         * http://chaijs.com/guide/styles/#expect
+         * 
+         * Stubs and Spys
+         * http://sinonjs.org/
+         * 
+         * 
+         * Naming specs file-name-test.html
+         * All Specs must end with -test.html
+         * 
+        */
+        describe('#main', function() {
+            
+            let startSpy;
+            let main;
+
+            before(done => {
+                // ran once
+                console.log('run before');
+                
+                document.getElementById('app-fixture').create();
+
+                SystemJS.import('/client-dev/js/main.js').then((mod) => {
+                    main = mod;
+                    done();
+                });
+
+            });
+
+            beforeEach(done => {
+                // ran before each test useful.
+
+                console.log('run before each');
+                done();
+            });
+
+
+            it('it should check the DOM has loaded', function() {
+                
+                const domReadyOrNot = main.start();
+                
+                expect(domReadyOrNot).to.not.equal('complete');
+                expect(domReadyOrNot).to.equal('loading');
+                expect(domReadyOrNot).to.be.a('string');
+            });
+
+
+            it('it should call the start method in the main object and kick off the app', function() {
+                
+                startSpy = sinon.spy(main, 'start');
+
+                main.start();
+                expect(startSpy).to.have.been.called
+            });
+
+
+            it('it should... example', function() {
+                
+                const obj = {
+                    accepts(param) {
+
+                    }
+                };
+
+                var accepts = sinon.spy(obj, 'accepts');
+                
+                obj.accepts('test');
+                expect(accepts).to.have.been.calledWith('test');
+            });
+
+
+            it('it should... SPY on an objects method', function() {
+
+                main.start.restore();
+
+                main.start();
+                expect(startSpy).to.have.been.calledOnce;
+            });
+
+        });
+
+    </script>
+</body>
+
+</html>

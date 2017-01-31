@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>App Spec</title>
+	<script src="/web-component-tester/browser.js"></script>
+	<script src="/bower_components/system.js/dist/system.js"></script>
+</head>
+
+<body>
+
+	<script>
+
+        /*
+         * We're using Polymers Web Component Test framework - (we also use this framework on the common-ui project)
+         * https://github.com/Polymer/web-component-tester
+         * 
+         * 
+         * TDD Style
+         * Refer to Mocha for test structure
+         * http://mochajs.org/#getting-started
+         * 
+         * 
+         * Sinon.JS Assertions for Chai
+         * Use the it should approach
+         * https://github.com/domenic/sinon-chai
+         * 
+         * 
+         * Use expect style
+         * http://chaijs.com/guide/styles/#expect
+         * 
+         * Stubs and Spys
+         * http://sinonjs.org/
+         * 
+         * 
+         * Naming specs file-name-test.html
+         * All Specs must end with -test.html
+         * 
+        */
+        describe('#app', function() {
+            
+            let app;
+            let main;
+
+            before(done => {
+                
+                SystemJS.import('/client-dev/js/main.js').then((mod) => {
+                    main = mod;
+                }).then(function() {
+                    SystemJS.import('/client-dev/js/app.js').then((mod) => {
+                        app = mod;
+                        done();
+                    });      
+                });
+                
+            });
+
+            it('it should call main.start and kick off the app initialisation', function() {
+                const spyMainStart = sinon.spy(main, 'start');
+               
+                main.start();
+                expect(spyMainStart).to.have.been.calledOnce;
+            });
+
+        });
+
+    </script>
+</body>
+
+</html>

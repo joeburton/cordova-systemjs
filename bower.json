@@ -1,0 +1,22 @@
+{
+  "name": "centre payments",
+  "description": "An application to process centre payments",
+  "main": "server.js",
+  "authors": [
+    "Cambridge Assessment - WebLab"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "web-components"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "system.js": "^0.19.39",
+    "document-register-element": "^1.2.0"
+  }
+}

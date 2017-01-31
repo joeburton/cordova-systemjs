@@ -1,0 +1,13 @@
+{
+  "extends": "weblab",
+  "env": {
+    "amd": true,
+    "browser": true
+  },
+  "globals": {
+    "ActiveXObject": true
+  },
+  "rules": {
+    "import/no-amd": 0
+  }
+}
